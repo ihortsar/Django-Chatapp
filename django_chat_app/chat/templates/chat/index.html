@@ -1,1 +1,44 @@
-<h1>Hello World</h1>
+{% extends 'base.html' %}
+
+
+
+
+{% block content %}
+{% if request.user.is_authenticated %}
+
+<div id="message_container" class="messageDiv">
+  {% for message in messages%}
+  <div>
+    {% ifchanged message.created_at|date:"Y-m-d" %}
+      <div class="dateOfMessage"><b>{{ message.created_at|date:"Y-m-d" }}</b>
+      </div>
+    {% endifchanged %}
+    <div class="messageContainer" {% if message.author != request.user %} style="align-items: flex-start" {% endif %}>
+      <div class="nameContent"> <b>{{ message.author }}:</b><div> {{ message.text }}</div></div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+<!-- Simple Textfield -->
+
+<script>
+  let username='{{ request.user.username|escapejs }}'
+  let token = '{{csrf_token}}'
+</script>
+
+<form onsubmit="sendMessage(); return false;" method="post">
+  {% csrf_token %}
+  <div class="mdl-textfield mdl-js-textfield">
+    <input name="textmessage" class="mdl-textfield__input" type="text" id="message_content" />
+    <label class="mdl-textfield__label" for="message_content">Text...</label>
+  </div>
+  <div class="buttons">
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Send</button>
+  </div>
+</form>
+{% else %}
+<h3>Click <a href="/login/">here</a> to log in</h3>
+{% endif %}
+{% endblock %}

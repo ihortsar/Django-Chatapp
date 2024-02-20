@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Sign Up</h1>
+
+  {% if emptyField %}
+    <p>Du brauchst Benutzername und Password zur Registrierung</p>
+  {% endif %}
+  {% if user_exists %}
+    <span style="color:red">User already exists</span>
+  {% endif %}
+  <form action="/signup/" method="post">
+    {% csrf_token %}
+    <div class="mdl-textfield mdl-js-textfield">
+      <input name="username" placeholder="Type your name" class="mdl-textfield__input" type="text" id="sample1" />
+    </div>
+    <div class="mdl-textfield mdl-js-textfield">
+      <input name="password" placeholder="Type your password" class="mdl-textfield__input" type="password" id="sample1" />
+    </div>
+    <div class="buttons">
+      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Sign Up</button>
+    </div>
+  </form>
+{% endblock %}

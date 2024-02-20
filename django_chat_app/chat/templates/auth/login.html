@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>Log in</h1>
+
+  {% if wrongPassword %}
+    <p>Benutzername oder Password ist falsch</p>
+  {% endif %}
+
+  <form action="/login/" method="post">
+    {% csrf_token %}
+    <div class="mdl-textfield mdl-js-textfield">
+      <input name="username" placeholder="Type your name" class="mdl-textfield__input" type="text" id="sample1" />
+    </div>
+    <div class="mdl-textfield mdl-js-textfield">
+      <input name="password" placeholder="Type your password" class="mdl-textfield__input" type="password" id="sample1" />
+    </div>
+    <div class="buttons">
+      <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" name="accept">Log in</button>
+      Kein Benutzerkonto?
+      <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" name="redirect_to_signup">Sign Up</button>
+    </div>
+  </form>
+{% endblock %}
