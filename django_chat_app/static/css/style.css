@@ -95,3 +95,7 @@ form {
     margin-top: -17px;
     background-color: white;
 }
+.formDiv{
+    display: flex;
+    justify-content: center;
+}

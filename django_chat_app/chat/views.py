@@ -6,18 +6,21 @@ from django.contrib.auth.models import User
 from django.core import serializers
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-
+from django.core.exceptions import ObjectDoesNotExist
 
 def index(request):
-    if request.method == "POST":
+    try:
         mychat = Chat.objects.get(id=1)
+    except ObjectDoesNotExist:
+        mychat = Chat.objects.create(id=1)
+    
+    if request.method == "POST":
         new_message = Message.objects.create(
             text=request.POST["textmessage"],
             chat=mychat,
             author=request.user,
             receiver=request.user,
         )
-       
         serialized_message = serializers.serialize("json", [new_message])
         return JsonResponse(serialized_message[1:-1], safe=False)
     chat_messages = Message.objects.filter(chat__id=1).order_by("created_at")

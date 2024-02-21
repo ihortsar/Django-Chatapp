@@ -28,7 +28,8 @@
   let token = '{{csrf_token}}'
 </script>
 
-<form onsubmit="sendMessage(); return false;" method="post">
+<div class="formDiv">
+  <form onsubmit="sendMessage(); return false;" method="post">
   {% csrf_token %}
   <div class="mdl-textfield mdl-js-textfield">
     <input name="textmessage" class="mdl-textfield__input" type="text" id="message_content" />
@@ -37,7 +38,8 @@
   <div class="buttons">
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Send</button>
   </div>
-</form>
+  </form>
+</div>
 {% else %}
 <h3>Click <a href="/login/">here</a> to log in</h3>
 {% endif %}
